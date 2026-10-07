@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Web Development Class Page</title>
     <style>
-        /* Base page reset and background */
+        /* BASE & LIGHT MODE STYLES */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f7f6;
@@ -13,9 +13,9 @@
             line-height: 1.6;
             margin: 0;
             padding: 40px 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Central content card */
         main {
             max-width: 650px;
             margin: 0 auto;
@@ -23,24 +23,82 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Heading style */
-        h1 {
-            color: #2c3e50;
+        /* DARK MODE STYLES */
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode main {
+            background-color: #16213e;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-mode h1, 
+        body.dark-mode h2 {
+            color: #4ea8de;
+        }
+
+        body.dark-mode p {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .interactive-box {
+            background-color: #0f3460;
+            border-left-color: #4ea8de;
+        }
+
+        body.dark-mode canvas {
+            background-color: #1a1a2e;
+            border-color: #4ea8de;
+        }
+
+        /* TOP HEADER LAYOUT */
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 2px solid #e2e8f0;
             padding-bottom: 12px;
-            margin-top: 0;
-        }
-
-        /* Paragraph text */
-        p {
-            font-size: 18px;
-            color: #4a5568;
             margin-bottom: 20px;
         }
 
-        /* Responsive image */
+        h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* BUTTON STYLES */
+        button {
+            background-color: #2980b9;
+            color: #ffffff;
+            border: none;
+            padding: 10px 16px;
+            font-size: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #1a5276;
+        }
+
+        .theme-btn {
+            background-color: #34495e;
+            font-size: 14px;
+        }
+
+        .theme-btn:hover {
+            background-color: #2c3e50;
+        }
+
+        /* IMAGE STYLES */
         img {
             max-width: 100%;
             height: auto;
@@ -49,35 +107,267 @@
             margin: 25px 0;
         }
 
-        /* Link & hover transitions */
+        /* INTERACTIVE BOX CONTAINER */
+        .interactive-box {
+            background-color: #f0f4f8;
+            border-left: 4px solid #2980b9;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 25px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .interactive-box h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 20px;
+        }
+
+        #tip-display {
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 0;
+        }
+
+        /* MINI-GAME STYLES */
+        #gameCanvas {
+            background-color: #eef2f5;
+            border: 2px solid #2980b9;
+            border-radius: 6px;
+            display: block;
+            margin: 15px 0;
+            width: 100%;
+            max-width: 580px;
+            height: 150px;
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* LINKS */
         a {
             color: #2980b9;
             text-decoration: none;
             font-weight: bold;
-            transition: color 0.2s ease;
         }
 
-        a:hover,
-        a:focus {
-            color: #1a5276;
+        body.dark-mode a {
+            color: #4ea8de;
+        }
+
+        a:hover, a:focus {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <main>
-        <h1>Introduction to Web Development</h1>
+        <!-- HEADER WITH DARK MODE TOGGLE -->
+        <div class="header-bar">
+            <h1>Web Dev Page</h1>
+            <button id="theme-btn" class="theme-btn">🌙 Dark Mode</button>
+        </div>
         
-        <p>Welcome to our class webpage! In this course, we are learning the fundamentals of building and publishing websites on the web using HTML, CSS, and GitHub Pages. We are excited to share our progress!</p>
+        <p>Welcome to our class webpage! In this course, we are learning the fundamentals of building and publishing websites using HTML, CSS, and JavaScript on GitHub Pages.</p>
 
-        <!-- Image -->
-        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Laptop computer displaying computer code on screen">
+        <!-- IMAGE -->
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Laptop computer displaying code">
 
-        <!-- Links -->
-        <p>Want to learn more? Check out the official documentation at 
+        <!-- COMPONENT 1: TIP GENERATOR -->
+        <div class="interactive-box">
+            <h2>💡 Tip Generator</h2>
+            <p>Click the button below to reveal a web dev tip!</p>
+            <button id="tip-btn">Get a Tip</button>
+            <p id="tip-display">Click the button above to start!</p>
+        </div>
+
+        <!-- COMPONENT 2: DINO JUMP MINI-GAME -->
+        <div class="interactive-box">
+            <h2>🦖 Mini Dino Runner</h2>
+            <p>Press <strong>Spacebar</strong> or click <strong>Jump</strong> to dodge the obstacles!</p>
+            <canvas id="gameCanvas" width="580" height="150"></canvas>
+            <div class="game-controls">
+                <button id="jump-btn">Jump!</button>
+                <button id="restart-btn" style="background-color: #e74c3c;">Restart Game</button>
+                <span id="score-text" style="font-weight: bold; margin-left: 10px;">Score: 0</span>
+            </div>
+        </div>
+
+        <!-- LINKS -->
+        <p>Want to learn more? Check out 
             <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN Web Docs</a> 
             or explore projects on <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>.
         </p>
     </main>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* --------------------------------------------------
+           1. LIGHT / DARK MODE TOGGLE
+        -------------------------------------------------- */
+        const themeBtn = document.getElementById('theme-btn');
+        themeBtn.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeBtn.textContent = '☀️ Light Mode';
+            } else {
+                themeBtn.textContent = '🌙 Dark Mode';
+            }
+        });
+
+        /* --------------------------------------------------
+           2. WEB DEV TIP GENERATOR
+        -------------------------------------------------- */
+        const tips = [
+            "HTML provides the structure, CSS adds styling, and JavaScript adds interactivity!",
+            "Use browser Developer Tools (F12) to inspect and debug your webpage elements live.",
+            "Always include 'alt' text on images to make your website accessible to screen readers.",
+            "GitHub Pages automatically builds your live site whenever you commit updates!"
+        ];
+
+        const tipBtn = document.getElementById('tip-btn');
+        const tipDisplay = document.getElementById('tip-display');
+
+        tipBtn.addEventListener('click', function() {
+            const randomIndex = Math.floor(Math.random() * tips.length);
+            tipDisplay.textContent = tips[randomIndex];
+        });
+
+        /* --------------------------------------------------
+           3. DINO JUMP MINI-GAME
+        -------------------------------------------------- */
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const jumpBtn = document.getElementById('jump-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const scoreText = document.getElementById('score-text');
+
+        let score = 0;
+        let gameOver = false;
+        let animationFrameId;
+
+        // Player (Dino) Object
+        const dino = {
+            x: 40,
+            y: 100,
+            width: 24,
+            height: 32,
+            dy: 0,
+            gravity: 0.6,
+            jumpPower: -11,
+            isGrounded: true
+        };
+
+        // Obstacle Object
+        const obstacle = {
+            x: canvas.width,
+            y: 112,
+            width: 18,
+            height: 20,
+            speed: 5
+        };
+
+        function drawDino() {
+            ctx.fillStyle = '#27ae60'; // Green color for dino
+            ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+        }
+
+        function drawObstacle() {
+            ctx.fillStyle = '#e74c3c'; // Red color for obstacle
+            ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        }
+
+        function drawGround() {
+            ctx.beginPath();
+            ctx.moveTo(0, 132);
+            ctx.lineTo(canvas.width, 132);
+            ctx.strokeStyle = '#7f8c8d';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        function jump() {
+            if (dino.isGrounded && !gameOver) {
+                dino.dy = dino.jumpPower;
+                dino.isGrounded = false;
+            }
+        }
+
+        function updateGame() {
+            if (gameOver) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Apply gravity to Dino
+            dino.dy += dino.gravity;
+            dino.y += dino.dy;
+
+            // Check if Dino hit ground
+            if (dino.y >= 100) {
+                dino.y = 100;
+                dino.dy = 0;
+                dino.isGrounded = true;
+            }
+
+            // Move Obstacle
+            obstacle.x -= obstacle.speed;
+            if (obstacle.x + obstacle.width < 0) {
+                obstacle.x = canvas.width;
+                score += 10;
+                scoreText.textContent = 'Score: ' + score;
+                // Gradually increase speed
+                if (obstacle.speed < 10) obstacle.speed += 0.2;
+            }
+
+            // Collision Detection
+            if (
+                dino.x < obstacle.x + obstacle.width &&
+                dino.x + dino.width > obstacle.x &&
+                dino.y < obstacle.y + obstacle.height &&
+                dino.y + dino.height > obstacle.y
+            ) {
+                gameOver = true;
+                scoreText.textContent = 'Game Over! Final Score: ' + score;
+            }
+
+            drawGround();
+            drawDino();
+            drawObstacle();
+
+            if (!gameOver) {
+                animationFrameId = requestAnimationFrame(updateGame);
+            }
+        }
+
+        function resetGame() {
+            cancelAnimationFrame(animationFrameId);
+            score = 0;
+            gameOver = false;
+            obstacle.x = canvas.width;
+            obstacle.speed = 5;
+            dino.y = 100;
+            dino.dy = 0;
+            dino.isGrounded = true;
+            scoreText.textContent = 'Score: 0';
+            updateGame();
+        }
+
+        // Controls
+        jumpBtn.addEventListener('click', jump);
+        restartBtn.addEventListener('click', resetGame);
+
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space' || event.code === 'ArrowUp') {
+                event.preventDefault(); // Prevents page scrolling when hitting Space
+                jump();
+            }
+        });
+
+        // Start game on load
+        updateGame();
+    </script>
 </body>
 </html>
