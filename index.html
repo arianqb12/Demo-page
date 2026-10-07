@@ -5,11 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Web Development Class Page</title>
     <style>
-        /* BASE & LIGHT MODE STYLES */
+        /* CSS VARIABLES & THEMING */
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-inner: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --accent: #d97706;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+
+        body.dark-mode {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --bg-inner: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --accent: #f59e0b;
+            --border-color: #334155;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        /* GLOBAL STYLES */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            color: #333333;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
             line-height: 1.6;
             margin: 0;
             padding: 40px 20px;
@@ -17,178 +50,260 @@
         }
 
         main {
-            max-width: 650px;
+            max-width: 720px;
             margin: 0 auto;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--bg-card);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
-        /* DARK MODE STYLES */
-        body.dark-mode {
-            background-color: #1a1a2e;
-            color: #e0e0e0;
-        }
-
-        body.dark-mode main {
-            background-color: #16213e;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-        }
-
-        body.dark-mode h1, 
-        body.dark-mode h2 {
-            color: #4ea8de;
-        }
-
-        body.dark-mode p {
-            color: #cbd5e1;
-        }
-
-        body.dark-mode .interactive-box {
-            background-color: #0f3460;
-            border-left-color: #4ea8de;
-        }
-
-        body.dark-mode .roster-slot {
-            background-color: #1a1a2e;
-            border-color: #4ea8de;
-            color: #e0e0e0;
-        }
-
-        /* TOP HEADER LAYOUT */
-        .header-bar {
+        /* TOP NAVIGATION & BAR */
+        .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 12px;
-            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 16px;
+            margin-bottom: 25px;
         }
 
-        h1 {
-            color: #2c3e50;
-            margin: 0;
-            font-size: 24px;
+        .lang-select-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* BUTTON STYLES */
-        button {
-            background-color: #2980b9;
-            color: #ffffff;
-            border: none;
-            padding: 10px 16px;
-            font-size: 15px;
-            border-radius: 6px;
+        select, button {
+            font-family: inherit;
+        }
+
+        .lang-select {
+            background-color: var(--bg-inner);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.2s ease, transform 0.1s ease;
-        }
-
-        button:hover {
-            background-color: #1a5276;
-        }
-
-        button:active {
-            transform: scale(0.98);
+            outline: none;
         }
 
         .theme-btn {
-            background-color: #34495e;
+            background-color: var(--bg-inner);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
             font-size: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }
 
         .theme-btn:hover {
-            background-color: #2c3e50;
+            border-color: var(--primary);
         }
 
-        /* IMAGE STYLES */
+        /* CONTENT ELEMENTS */
+        h1 {
+            color: var(--text-main);
+            margin: 0 0 10px 0;
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
         img {
             max-width: 100%;
             height: auto;
-            border-radius: 8px;
+            border-radius: 12px;
             display: block;
             margin: 25px 0;
         }
 
-        /* INTERACTIVE BOX CONTAINERS */
+        /* INTERACTIVE CARDS */
         .interactive-box {
-            background-color: #f0f4f8;
-            border-left: 4px solid #2980b9;
-            padding: 20px;
-            border-radius: 6px;
-            margin: 25px 0;
-            transition: background-color 0.3s ease;
+            background-color: var(--bg-inner);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 12px;
+            margin: 28px 0;
+            transition: all 0.3s ease;
         }
 
         .interactive-box h2 {
             margin-top: 0;
-            color: #2c3e50;
+            color: var(--text-main);
             font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         #tip-display {
-            font-weight: bold;
+            font-weight: 600;
+            color: var(--text-main);
             margin-top: 15px;
             margin-bottom: 0;
+            background: var(--bg-card);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
         }
 
-        /* BASKETBALL GAME STYLES */
-        .roster-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .roster-slot {
-            background-color: #ffffff;
-            border: 2px dashed #2980b9;
-            border-radius: 6px;
-            padding: 10px;
-            text-align: center;
-            font-size: 13px;
-        }
-
-        .roster-slot strong {
-            display: block;
-            font-size: 14px;
-            color: #e67e22;
-        }
-
-        .game-actions {
+        /* 82-0 BASKETBALL GAME STYLES */
+        .salary-bar {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-card);
+            padding: 12px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
-        #sim-result {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 6px;
-            background-color: #e8f8f5;
-            color: #16a085;
-            font-weight: bold;
+        .cap-status {
+            color: var(--success);
+        }
+
+        .cap-status.over-cap {
+            color: var(--danger);
+        }
+
+        .roster-builder {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .pos-row {
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--bg-card);
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .pos-badge {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 800;
             text-align: center;
-            display: none;
+            padding: 6px 0;
+            border-radius: 6px;
+            font-size: 14px;
         }
 
-        body.dark-mode #sim-result {
-            background-color: #1b4f72;
-            color: #a3e4d7;
+        .player-select {
+            width: 100%;
+            background-color: var(--bg-inner);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .sim-progress-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 12px;
+            background-color: var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--accent);
+            transition: width 0.05s linear;
+        }
+
+        .sim-ticker {
+            font-family: monospace;
+            font-size: 13px;
+            background-color: var(--bg-card);
+            padding: 10px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .result-screen {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            background-color: var(--bg-card);
+            border: 2px solid var(--primary);
+        }
+
+        .result-screen.perfect {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+        }
+
+        .result-screen h3 {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+        }
+
+        .record-badge {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--primary);
+            margin: 10px 0;
         }
 
         /* LINKS */
         a {
-            color: #2980b9;
+            color: var(--primary);
             text-decoration: none;
-            font-weight: bold;
-        }
-
-        body.dark-mode a {
-            color: #4ea8de;
+            font-weight: 700;
         }
 
         a:hover, a:focus {
@@ -198,184 +313,413 @@
 </head>
 <body>
     <main>
-        <!-- HEADER WITH DARK MODE TOGGLE -->
-        <div class="header-bar">
-            <h1>Web Dev Page</h1>
+        <!-- TOP NAVIGATION BAR -->
+        <div class="top-bar">
+            <!-- LANGUAGE SELECTOR (TOP LEFT) -->
+            <div class="lang-select-wrapper">
+                <select id="lang-select" class="lang-select" aria-label="Select Language">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="fr">🇫🇷 Français</option>
+                    <option value="es">🇪🇸 Español</option>
+                </select>
+            </div>
+
+            <!-- DARK MODE TOGGLE (TOP RIGHT) -->
             <button id="theme-btn" class="theme-btn">🌙 Dark Mode</button>
         </div>
+
+        <!-- MAIN HEADING & INTRO -->
+        <h1 id="page-title">Introduction to Web Development</h1>
         
-        <p>Welcome to our class webpage! In this course, we are learning the fundamentals of building and publishing websites using HTML, CSS, and JavaScript on GitHub Pages.</p>
+        <p id="welcome-text">Welcome to our class webpage! In this course, we are learning the fundamentals of building and publishing websites using HTML, CSS, and JavaScript on GitHub Pages.</p>
 
         <!-- IMAGE -->
-        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Laptop computer displaying code">
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Laptop computer displaying computer code on screen">
 
         <!-- COMPONENT 1: TIP GENERATOR -->
         <div class="interactive-box">
-            <h2>💡 Tip Generator</h2>
-            <p>Click the button below to reveal a web dev tip!</p>
-            <button id="tip-btn">Get a Tip</button>
+            <h2 id="tip-title">💡 Tip Generator</h2>
+            <p id="tip-sub">Click the button below to reveal a web dev tip!</p>
+            <button id="tip-btn" class="btn-primary">Get a Tip</button>
             <p id="tip-display">Click the button above to start!</p>
         </div>
 
-        <!-- COMPONENT 2: 82-0 BASKETBALL TEAM BUILDER -->
+        <!-- COMPONENT 2: 82-0 BASKETBALL TEAM BUILDER & SIMULATOR -->
         <div class="interactive-box">
-            <h2>🏀 82-0 Basketball Team Simulator</h2>
-            <p>Draft a starting 5 lineup and test if your roster can achieve a perfect <strong>82-0 season</strong>!</p>
-            
-            <div class="roster-grid">
-                <div class="roster-slot" id="slot-PG"><strong>PG</strong><span>Unfilled</span></div>
-                <div class="roster-slot" id="slot-SG"><strong>SG</strong><span>Unfilled</span></div>
-                <div class="roster-slot" id="slot-SF"><strong>SF</strong><span>Unfilled</span></div>
-                <div class="roster-slot" id="slot-PF"><strong>PF</strong><span>Unfilled</span></div>
-                <div class="roster-slot" id="slot-C"><strong>C</strong><span>Unfilled</span></div>
+            <h2 id="game-title">🏀 82-0 Basketball Team Simulator</h2>
+            <p id="game-sub">Select your starting 5 under the <strong>$100M salary cap</strong> and simulate an 82-game season to reach 82-0 perfection!</p>
+
+            <!-- SALARY CAP DISPLAY -->
+            <div class="salary-bar">
+                <span id="cap-label">Salary Cap Remaining:</span>
+                <span id="cap-value" class="cap-status">$100M</span>
             </div>
 
-            <div class="game-actions">
-                <button id="draft-btn">🎲 Draft Roster</button>
-                <button id="sim-btn" style="background-color: #27ae60;" disabled>🚀 Simulate Season</button>
+            <!-- ROSTER SELECTORS -->
+            <div class="roster-builder">
+                <div class="pos-row">
+                    <div class="pos-badge">PG</div>
+                    <select id="select-PG" class="player-select" onchange="updateCap()"></select>
+                </div>
+                <div class="pos-row">
+                    <div class="pos-badge">SG</div>
+                    <select id="select-SG" class="player-select" onchange="updateCap()"></select>
+                </div>
+                <div class="pos-row">
+                    <div class="pos-badge">SF</div>
+                    <select id="select-SF" class="player-select" onchange="updateCap()"></select>
+                </div>
+                <div class="pos-row">
+                    <div class="pos-badge">PF</div>
+                    <select id="select-PF" class="player-select" onchange="updateCap()"></select>
+                </div>
+                <div class="pos-row">
+                    <div class="pos-badge">C</div>
+                    <select id="select-C" class="player-select" onchange="updateCap()"></select>
+                </div>
             </div>
 
-            <div id="sim-result"></div>
+            <!-- ACTIONS -->
+            <button id="sim-btn" class="btn-primary" onclick="runSeasonSimulation()">🚀 Simulate 82-Game Season</button>
+
+            <!-- SIMULATION TICKER & PROGRESS -->
+            <div id="sim-progress" class="sim-progress-container">
+                <div class="progress-bar-bg">
+                    <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                </div>
+                <div id="sim-ticker" class="sim-ticker">Game 0/82: Ready...</div>
+            </div>
+
+            <!-- FINAL RESULT DISPLAY -->
+            <div id="result-screen" class="result-screen">
+                <h3 id="result-title">Season Complete!</h3>
+                <div id="result-record" class="record-badge">0 - 0</div>
+                <p id="result-desc">Roster description...</p>
+            </div>
         </div>
 
         <!-- LINKS -->
-        <p>Want to learn more? Check out 
+        <p id="footer-links">
+            <span id="text-learn">Want to learn more? Check out </span>
             <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN Web Docs</a> 
-            or explore projects on <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>.
+            <span id="text-or"> or explore projects on </span>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>.
         </p>
     </main>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
         /* --------------------------------------------------
-           1. LIGHT / DARK MODE TOGGLE
+           1. TRANSLATION DICTIONARY
+        -------------------------------------------------- */
+        const i18n = {
+            en: {
+                title: "Introduction to Web Development",
+                welcome: "Welcome to our class webpage! In this course, we are learning the fundamentals of building and publishing websites using HTML, CSS, and JavaScript on GitHub Pages.",
+                tipTitle: "💡 Tip Generator",
+                tipSub: "Click the button below to reveal a web dev tip!",
+                tipBtn: "Get a Tip",
+                tipDefault: "Click the button above to start!",
+                tips: [
+                    "HTML provides structure, CSS adds styling, and JavaScript adds interactivity!",
+                    "Use browser Developer Tools (F12) to inspect and debug webpage elements live.",
+                    "Always include 'alt' text on images to make your website accessible to screen readers.",
+                    "GitHub Pages automatically builds your live site whenever you commit updates!"
+                ],
+                gameTitle: "🏀 82-0 Basketball Team Simulator",
+                gameSub: "Select your starting 5 under the $100M salary cap and simulate an 82-game season to reach 82-0 perfection!",
+                capLabel: "Salary Cap Remaining:",
+                simBtn: "🚀 Simulate 82-Game Season",
+                simulating: "Simulating Season...",
+                selectPrompt: "-- Select Player --",
+                learn: "Want to learn more? Check out ",
+                or: " or explore projects on ",
+                darkMode: "🌙 Dark Mode",
+                lightMode: "☀️ Light Mode"
+            },
+            fr: {
+                title: "Introduction au Développement Web",
+                welcome: "Bienvenue sur notre page web de cours ! Dans ce cours, nous apprenons les bases de la création et de la publication de sites web avec HTML, CSS et JavaScript sur GitHub Pages.",
+                tipTitle: "💡 Générateur d'Astuces",
+                tipSub: "Cliquez sur le bouton ci-dessous pour afficher un conseil !",
+                tipBtn: "Obtenir un conseil",
+                tipDefault: "Cliquez sur le bouton ci-dessus pour commencer !",
+                tips: [
+                    "L'HTML fournit la structure, le CSS ajoute le style et le JavaScript ajoute l'interactivité !",
+                    "Utilisez les outils de développement (F12) pour inspecter vos éléments en direct.",
+                    "Incluez toujours un texte 'alt' sur vos images pour rendre votre site accessible.",
+                    "GitHub Pages déploie automatiquement votre site en direct à chaque commit !"
+                ],
+                gameTitle: "🏀 Simulateur d'Équipe de Basket 82-0",
+                gameSub: "Sélectionnez votre 5 majeur sous le plafond salarial de 100M$ et simulez 82 matchs pour viser le 82-0 parfait !",
+                capLabel: "Plafond Salarial Restant :",
+                simBtn: "🚀 Simuler la Saison (82 Matchs)",
+                simulating: "Simulation en cours...",
+                selectPrompt: "-- Choisir Un Joueur --",
+                learn: "Vous voulez en savoir plus ? Consultez ",
+                or: " ou explorez des projets sur ",
+                darkMode: "🌙 Mode Sombre",
+                lightMode: "☀️ Mode Clair"
+            },
+            es: {
+                title: "Introducción al Desarrollo Web",
+                welcome: "¡Bienvenido a la página web de nuestra clase! En este curso, aprendemos los fundamentos del diseño y publicación de sitios web con HTML, CSS y JavaScript en GitHub Pages.",
+                tipTitle: "💡 Generador de Consejos",
+                tipSub: "¡Haz clic en el botón de abajo para revelar un consejo de desarrollo web!",
+                tipBtn: "Obtener Consejo",
+                tipDefault: "¡Haz clic arriba para comenzar!",
+                tips: [
+                    "¡HTML proporciona la estructura, CSS añade estilo y JavaScript agrega interactividad!",
+                    "Usa las herramientas de desarrollo del navegador (F12) para depurar elementos en vivo.",
+                    "Siempre incluye texto 'alt' en tus imágenes para que tu sitio sea accesible para todos.",
+                    "¡GitHub Pages publica automáticamente tu sitio web en vivo cada vez que haces un commit!"
+                ],
+                gameTitle: "🏀 Simulador de Equipo de Baloncesto 82-0",
+                gameSub: "¡Elige tu 5 inicial dentro del límite salarial de $100M y simula 82 partidos para lograr el 82-0 perfecto!",
+                capLabel: "Límite Salarial Restante:",
+                simBtn: "🚀 Simular Temporada (82 Partidos)",
+                simulating: "Simulando Temporada...",
+                selectPrompt: "-- Seleccionar Jugador --",
+                learn: "¿Quieres aprender más? Visita ",
+                or: " o explora proyectos en ",
+                darkMode: "🌙 Modo Oscuro",
+                lightMode: "☀️ Modo Claro"
+            }
+        };
+
+        let currentLang = 'en';
+
+        // LANGUAGE TRANSLATION TOGGLE
+        const langSelect = document.getElementById('lang-select');
+        langSelect.addEventListener('change', function(e) {
+            currentLang = e.target.value;
+            applyTranslations();
+        });
+
+        function applyTranslations() {
+            const t = i18n[currentLang];
+            document.getElementById('page-title').textContent = t.title;
+            document.getElementById('welcome-text').textContent = t.welcome;
+            document.getElementById('tip-title').textContent = t.tipTitle;
+            document.getElementById('tip-sub').textContent = t.tipSub;
+            document.getElementById('tip-btn').textContent = t.tipBtn;
+            document.getElementById('tip-display').textContent = t.tipDefault;
+            document.getElementById('game-title').textContent = t.gameTitle;
+            document.getElementById('game-sub').innerHTML = t.gameSub;
+            document.getElementById('cap-label').textContent = t.capLabel;
+            document.getElementById('sim-btn').textContent = t.simBtn;
+            document.getElementById('text-learn').textContent = t.learn;
+            document.getElementById('text-or').textContent = t.or;
+
+            // Update Theme button text
+            const themeBtn = document.getElementById('theme-btn');
+            if (document.body.classList.contains('dark-mode')) {
+                themeBtn.textContent = t.lightMode;
+            } else {
+                themeBtn.textContent = t.darkMode;
+            }
+
+            populatePlayerDropdowns();
+            updateCap();
+        }
+
+        /* --------------------------------------------------
+           2. LIGHT / DARK MODE TOGGLE
         -------------------------------------------------- */
         const themeBtn = document.getElementById('theme-btn');
         themeBtn.addEventListener('click', function() {
             document.body.classList.toggle('dark-mode');
+            const t = i18n[currentLang];
             if (document.body.classList.contains('dark-mode')) {
-                themeBtn.textContent = '☀️ Light Mode';
+                themeBtn.textContent = t.lightMode;
             } else {
-                themeBtn.textContent = '🌙 Dark Mode';
+                themeBtn.textContent = t.darkMode;
             }
         });
 
         /* --------------------------------------------------
-           2. WEB DEV TIP GENERATOR
+           3. WEB DEV TIP GENERATOR
         -------------------------------------------------- */
-        const tips = [
-            "HTML provides the structure, CSS adds styling, and JavaScript adds interactivity!",
-            "Use browser Developer Tools (F12) to inspect and debug your webpage elements live.",
-            "Always include 'alt' text on images to make your website accessible to screen readers.",
-            "GitHub Pages automatically builds your live site whenever you commit updates!"
-        ];
-
         const tipBtn = document.getElementById('tip-btn');
         const tipDisplay = document.getElementById('tip-display');
 
         tipBtn.addEventListener('click', function() {
-            const randomIndex = Math.floor(Math.random() * tips.length);
-            tipDisplay.textContent = tips[randomIndex];
+            const tipsList = i18n[currentLang].tips;
+            const randomIndex = Math.floor(Math.random() * tipsList.length);
+            tipDisplay.textContent = tipsList[randomIndex];
         });
 
         /* --------------------------------------------------
-           3. 82-0 BASKETBALL TEAM BUILDER
+           4. 82-0 BASKETBALL GAME LOGIC
         -------------------------------------------------- */
-        const playerPool = {
+        const playersData = {
             PG: [
-                { name: "Steph Curry", ovr: 96 },
-                { name: "Luka Doncic", ovr: 95 },
-                { name: "Magic Johnson", ovr: 97 },
-                { name: "Damian Lillard", ovr: 89 },
-                { name: "Shai Gilgeous-Alexander", ovr: 94 }
+                { name: "Magic Johnson", ovr: 97, salary: 32 },
+                { name: "Steph Curry", ovr: 96, salary: 30 },
+                { name: "Luka Doncic", ovr: 95, salary: 28 },
+                { name: "SGA", ovr: 93, salary: 22 },
+                { name: "Jalen Brunson", ovr: 89, salary: 16 }
             ],
             SG: [
-                { name: "Michael Jordan", ovr: 99 },
-                { name: "Kobe Bryant", ovr: 97 },
-                { name: "Dwyane Wade", ovr: 93 },
-                { name: "Devin Booker", ovr: 90 },
-                { name: "Anthony Edwards", ovr: 92 }
+                { name: "Michael Jordan", ovr: 99, salary: 35 },
+                { name: "Kobe Bryant", ovr: 97, salary: 32 },
+                { name: "Dwyane Wade", ovr: 93, salary: 24 },
+                { name: "Anthony Edwards", ovr: 91, salary: 20 },
+                { name: "Devin Booker", ovr: 89, salary: 16 }
             ],
             SF: [
-                { name: "LeBron James", ovr: 98 },
-                { name: "Kevin Durant", ovr: 96 },
-                { name: "Larry Bird", ovr: 96 },
-                { name: "Jayson Tatum", ovr: 93 },
-                { name: "Kawhi Leonard", ovr: 92 }
+                { name: "LeBron James", ovr: 98, salary: 34 },
+                { name: "Kevin Durant", ovr: 96, salary: 30 },
+                { name: "Larry Bird", ovr: 96, salary: 29 },
+                { name: "Jayson Tatum", ovr: 93, salary: 22 },
+                { name: "Kawhi Leonard", ovr: 91, salary: 19 }
             ],
             PF: [
-                { name: "Giannis Antetokounmpo", ovr: 97 },
-                { name: "Tim Duncan", ovr: 97 },
-                { name: "Dirk Nowitzki", ovr: 93 },
-                { name: "Anthony Davis", ovr: 94 },
-                { name: "Zion Williamson", ovr: 87 }
+                { name: "Giannis Antetokounmpo", ovr: 97, salary: 31 },
+                { name: "Tim Duncan", ovr: 97, salary: 30 },
+                { name: "Dirk Nowitzki", ovr: 93, salary: 23 },
+                { name: "Anthony Davis", ovr: 93, salary: 23 },
+                { name: "Pascal Siakam", ovr: 86, salary: 12 }
             ],
             C: [
-                { name: "Nikola Jokic", ovr: 98 },
-                { name: "Shaquille O'Neal", ovr: 97 },
-                { name: "Hakeem Olajuwon", ovr: 96 },
-                { name: "Joel Embiid", ovr: 95 },
-                { name: "Victor Wembanyama", ovr: 92 }
+                { name: "Nikola Jokic", ovr: 98, salary: 33 },
+                { name: "Shaquille O'Neal", ovr: 97, salary: 32 },
+                { name: "Hakeem Olajuwon", ovr: 96, salary: 29 },
+                { name: "Joel Embiid", ovr: 95, salary: 27 },
+                { name: "Victor Wembanyama", ovr: 92, salary: 20 }
             ]
         };
 
-        let currentRoster = {};
-        const draftBtn = document.getElementById('draft-btn');
-        const simBtn = document.getElementById('sim-btn');
-        const simResult = document.getElementById('sim-result');
+        const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
 
-        function getRandomPlayer(pos) {
-            const list = playerPool[pos];
-            return list[Math.floor(Math.random() * list.length)];
+        function populatePlayerDropdowns() {
+            positions.forEach(pos => {
+                const select = document.getElementById(`select-${pos}`);
+                const currentVal = select.value;
+                select.innerHTML = `<option value="">${i18n[currentLang].selectPrompt}</option>`;
+                
+                playersData[pos].forEach((p, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = idx;
+                    opt.textContent = `${p.name} (OVR: ${p.ovr} | $${p.salary}M)`;
+                    select.appendChild(opt);
+                });
+
+                if (currentVal !== "") {
+                    select.value = currentVal;
+                }
+            });
         }
 
-        draftBtn.addEventListener('click', function() {
-            const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
-            
+        function updateCap() {
+            let totalSalary = 0;
+            let allSelected = true;
+
             positions.forEach(pos => {
-                const player = getRandomPlayer(pos);
-                currentRoster[pos] = player;
-                
-                const slotEl = document.getElementById(`slot-${pos}`);
-                slotEl.innerHTML = `<strong>${pos}</strong>${player.name}<br><small>(${player.ovr} OVR)</small>`;
+                const select = document.getElementById(`select-${pos}`);
+                if (select.value !== "") {
+                    totalSalary += playersData[pos][select.value].salary;
+                } else {
+                    allSelected = false;
+                }
             });
 
-            simBtn.disabled = false;
-            simResult.style.display = 'none';
-        });
+            const remaining = 100 - totalSalary;
+            const capValEl = document.getElementById('cap-value');
+            const simBtn = document.getElementById('sim-btn');
 
-        simBtn.addEventListener('click', function() {
-            let totalOvr = 0;
-            for (let pos in currentRoster) {
-                totalOvr += currentRoster[pos].ovr;
+            capValEl.textContent = `$${remaining}M`;
+
+            if (remaining < 0) {
+                capValEl.className = 'cap-status over-cap';
+                simBtn.disabled = true;
+            } else {
+                capValEl.className = 'cap-status';
+                simBtn.disabled = !allSelected;
             }
+        }
+
+        function runSeasonSimulation() {
+            const simBtn = document.getElementById('sim-btn');
+            const progressBox = document.getElementById('sim-progress');
+            const progressBar = document.getElementById('progress-bar-fill');
+            const ticker = document.getElementById('sim-ticker');
+            const resultScreen = document.getElementById('result-screen');
+
+            simBtn.disabled = true;
+            resultScreen.style.display = 'none';
+            progressBox.style.display = 'block';
+
+            // Calculate Team Overall
+            let totalOvr = 0;
+            positions.forEach(pos => {
+                const idx = document.getElementById(`select-${pos}`).value;
+                totalOvr += playersData[pos][idx].ovr;
+            });
             const avgOvr = totalOvr / 5;
 
-            // Simulate 82 games based on team overall rating
+            let game = 0;
             let wins = 0;
             let losses = 0;
 
-            for (let i = 0; i < 82; i++) {
-                // Calculate win probability for each game
-                const winChance = (avgOvr - 70) / 30; // High overall = near ~90-95% win chance per game
-                const randomVal = Math.random();
-                
-                if (randomVal < winChance) {
+            const opponents = ["Celtics", "Lakers", "Warriors", "Bulls", "Heat", "Nuggets", "Mavs", "Bucks"];
+
+            const interval = setInterval(() => {
+                game++;
+                const winChance = (avgOvr - 72) / 28; // Win probability calculation
+                const isWin = Math.random() < winChance;
+
+                if (isWin) {
                     wins++;
                 } else {
                     losses++;
                 }
+
+                const opp = opponents[Math.floor(Math.random() * opponents.length)];
+                const teamPts = Math.floor(100 + Math.random() * 25 + (isWin ? 8 : 0));
+                const oppPts = isWin ? teamPts - Math.floor(1 + Math.random() * 15) : teamPts + Math.floor(1 + Math.random() * 15);
+
+                // Update UI Ticker
+                ticker.textContent = `Game ${game}/82: ${isWin ? 'WIN' : 'LOSS'} vs ${opp} (${teamPts}-${oppPts}) | Record: ${wins}-${losses}`;
+                progressBar.style.width = `${(game / 82) * 100}%`;
+
+                if (game >= 82) {
+                    clearInterval(interval);
+                    showFinalResult(wins, losses, avgOvr);
+                }
+            }, 30);
+        }
+
+        function showFinalResult(wins, losses, avgOvr) {
+            const resultScreen = document.getElementById('result-screen');
+            const resultTitle = document.getElementById('result-title');
+            const resultRecord = document.getElementById('result-record');
+            const resultDesc = document.getElementById('result-desc');
+            const simBtn = document.getElementById('sim-btn');
+
+            resultScreen.style.display = 'block';
+            resultRecord.textContent = `${wins} - ${losses}`;
+
+            if (wins === 82) {
+                resultScreen.className = 'result-screen perfect';
+                resultTitle.textContent = "🏆 82-0 UNBEATEN PERFECT SEASON!";
+                resultDesc.textContent = `LEGENDARY ROSTER! Average Rating: ${avgOvr.toFixed(1)} OVR. You built an untouchable dynasty!`;
+            } else if (wins >= 72) {
+                resultScreen.className = 'result-screen';
+                resultTitle.textContent = "🔥 Championship Contender!";
+                resultDesc.textContent = `Historic Run! Average Rating: ${avgOvr.toFixed(1)} OVR. Almost hit 82-0. Try tweaking your salary allocation!`;
+            } else {
+                resultScreen.className = 'result-screen';
+                resultTitle.textContent = "🏀 Solid Playoff Team";
+                resultDesc.textContent = `Average Rating: ${avgOvr.toFixed(1)} OVR. Re-draft your starting 5 under the $100M cap to chase 82-0!`;
             }
 
-            simResult.style.display = 'block';
-            if (wins === 82) {
-                simResult.innerHTML = `🏆 PERFECT SEASON! Record: 82-0!<br>Team Average OVR: ${avgOvr.toFixed(1)} — You built a GOAT roster!`;
-            } else if (wins >= 70) {
-                simResult.innerHTML = `🔥 Incredible Run! Record: ${wins}-${losses}.<br>Team Average OVR: ${avgOvr.toFixed(1)}. So close to 82-0! Draft again!`;
-            } else {
-                simResult.innerHTML = `🏀 Good Season! Record: ${wins}-${losses}.<br>Team Average OVR: ${avgOvr.toFixed(1)}. Re-draft to chase 82-0!`;
-            }
-        });
+            simBtn.disabled = false;
+        }
+
+        // INITIALIZE ON LOAD
+        populatePlayerDropdowns();
+        updateCap();
     </script>
 </body>
 </html>
