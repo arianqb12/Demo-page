@@ -5,62 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Web Development Class Page</title>
     <style>
+        /* Base page reset and background */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f7f6;
             color: #333333;
             line-height: 1.6;
-            max-width: 650px;
-            margin: 40px auto;
-            padding: 20px;
+            margin: 0;
+            padding: 40px 20px;
         }
 
+        /* Central content card */
+        main {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Heading style */
         h1 {
             color: #2c3e50;
-            border-bottom: 2px solid #2c3e50;
-            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+            margin-top: 0;
         }
 
+        /* Paragraph text */
         p {
             font-size: 18px;
-            background-color: #ffffff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            color: #4a5568;
+            margin-bottom: 20px;
         }
 
+        /* Responsive image */
         img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             display: block;
-            margin: 20px 0;
+            margin: 25px 0;
         }
 
+        /* Link & hover transitions */
         a {
             color: #2980b9;
             text-decoration: none;
             font-weight: bold;
+            transition: color 0.2s ease;
         }
 
-        a:hover {
+        a:hover,
+        a:focus {
+            color: #1a5276;
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h1>Introduction to Web Development</h1>
-    
-    <p>Welcome to our class webpage! In this course, we are learning the fundamentals of building and publishing websites on the web using HTML, CSS, and GitHub Pages.*added* we are excited.</p>
+    <main>
+        <h1>Introduction to Web Development</h1>
+        
+        <p>Welcome to our class webpage! In this course, we are learning the fundamentals of building and publishing websites on the web using HTML, CSS, and GitHub Pages. We are excited to share our progress!</p>
 
-    <!-- LIVE WORKING IMAGE -->
-    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Laptop computer displaying computer code on screen">
+        <!-- Image -->
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Laptop computer displaying computer code on screen">
 
-    <!-- LIVE WORKING LINK -->
-    <p>Want to learn more? Check out the official documentation at 
-        <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN Web Docs</a> 
-        or explore projects on <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>.
-    </p>
+        <!-- Links -->
+        <p>Want to learn more? Check out the official documentation at 
+            <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN Web Docs</a> 
+            or explore projects on <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>.
+        </p>
+    </main>
 </body>
 </html>
