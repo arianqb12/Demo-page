@@ -51,9 +51,10 @@
             border-left-color: #4ea8de;
         }
 
-        body.dark-mode canvas {
+        body.dark-mode .roster-slot {
             background-color: #1a1a2e;
             border-color: #4ea8de;
+            color: #e0e0e0;
         }
 
         /* TOP HEADER LAYOUT */
@@ -82,11 +83,15 @@
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.2s ease, transform 0.1s ease;
         }
 
         button:hover {
             background-color: #1a5276;
+        }
+
+        button:active {
+            transform: scale(0.98);
         }
 
         .theme-btn {
@@ -107,7 +112,7 @@
             margin: 25px 0;
         }
 
-        /* INTERACTIVE BOX CONTAINER */
+        /* INTERACTIVE BOX CONTAINERS */
         .interactive-box {
             background-color: #f0f4f8;
             border-left: 4px solid #2980b9;
@@ -129,22 +134,50 @@
             margin-bottom: 0;
         }
 
-        /* MINI-GAME STYLES */
-        #gameCanvas {
-            background-color: #eef2f5;
-            border: 2px solid #2980b9;
-            border-radius: 6px;
-            display: block;
+        /* BASKETBALL GAME STYLES */
+        .roster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
             margin: 15px 0;
-            width: 100%;
-            max-width: 580px;
-            height: 150px;
         }
 
-        .game-controls {
+        .roster-slot {
+            background-color: #ffffff;
+            border: 2px dashed #2980b9;
+            border-radius: 6px;
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .roster-slot strong {
+            display: block;
+            font-size: 14px;
+            color: #e67e22;
+        }
+
+        .game-actions {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
-            align-items: center;
+            margin-top: 15px;
+        }
+
+        #sim-result {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            background-color: #e8f8f5;
+            color: #16a085;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+
+        body.dark-mode #sim-result {
+            background-color: #1b4f72;
+            color: #a3e4d7;
         }
 
         /* LINKS */
@@ -184,16 +217,25 @@
             <p id="tip-display">Click the button above to start!</p>
         </div>
 
-        <!-- COMPONENT 2: DINO JUMP MINI-GAME -->
+        <!-- COMPONENT 2: 82-0 BASKETBALL TEAM BUILDER -->
         <div class="interactive-box">
-            <h2>🦖 Mini Dino Runner</h2>
-            <p>Press <strong>Spacebar</strong> or click <strong>Jump</strong> to dodge the obstacles!</p>
-            <canvas id="gameCanvas" width="580" height="150"></canvas>
-            <div class="game-controls">
-                <button id="jump-btn">Jump!</button>
-                <button id="restart-btn" style="background-color: #e74c3c;">Restart Game</button>
-                <span id="score-text" style="font-weight: bold; margin-left: 10px;">Score: 0</span>
+            <h2>🏀 82-0 Basketball Team Simulator</h2>
+            <p>Draft a starting 5 lineup and test if your roster can achieve a perfect <strong>82-0 season</strong>!</p>
+            
+            <div class="roster-grid">
+                <div class="roster-slot" id="slot-PG"><strong>PG</strong><span>Unfilled</span></div>
+                <div class="roster-slot" id="slot-SG"><strong>SG</strong><span>Unfilled</span></div>
+                <div class="roster-slot" id="slot-SF"><strong>SF</strong><span>Unfilled</span></div>
+                <div class="roster-slot" id="slot-PF"><strong>PF</strong><span>Unfilled</span></div>
+                <div class="roster-slot" id="slot-C"><strong>C</strong><span>Unfilled</span></div>
             </div>
+
+            <div class="game-actions">
+                <button id="draft-btn">🎲 Draft Roster</button>
+                <button id="sim-btn" style="background-color: #27ae60;" disabled>🚀 Simulate Season</button>
+            </div>
+
+            <div id="sim-result"></div>
         </div>
 
         <!-- LINKS -->
@@ -237,137 +279,103 @@
         });
 
         /* --------------------------------------------------
-           3. DINO JUMP MINI-GAME
+           3. 82-0 BASKETBALL TEAM BUILDER
         -------------------------------------------------- */
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const jumpBtn = document.getElementById('jump-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        const scoreText = document.getElementById('score-text');
-
-        let score = 0;
-        let gameOver = false;
-        let animationFrameId;
-
-        // Player (Dino) Object
-        const dino = {
-            x: 40,
-            y: 100,
-            width: 24,
-            height: 32,
-            dy: 0,
-            gravity: 0.6,
-            jumpPower: -11,
-            isGrounded: true
+        const playerPool = {
+            PG: [
+                { name: "Steph Curry", ovr: 96 },
+                { name: "Luka Doncic", ovr: 95 },
+                { name: "Magic Johnson", ovr: 97 },
+                { name: "Damian Lillard", ovr: 89 },
+                { name: "Shai Gilgeous-Alexander", ovr: 94 }
+            ],
+            SG: [
+                { name: "Michael Jordan", ovr: 99 },
+                { name: "Kobe Bryant", ovr: 97 },
+                { name: "Dwyane Wade", ovr: 93 },
+                { name: "Devin Booker", ovr: 90 },
+                { name: "Anthony Edwards", ovr: 92 }
+            ],
+            SF: [
+                { name: "LeBron James", ovr: 98 },
+                { name: "Kevin Durant", ovr: 96 },
+                { name: "Larry Bird", ovr: 96 },
+                { name: "Jayson Tatum", ovr: 93 },
+                { name: "Kawhi Leonard", ovr: 92 }
+            ],
+            PF: [
+                { name: "Giannis Antetokounmpo", ovr: 97 },
+                { name: "Tim Duncan", ovr: 97 },
+                { name: "Dirk Nowitzki", ovr: 93 },
+                { name: "Anthony Davis", ovr: 94 },
+                { name: "Zion Williamson", ovr: 87 }
+            ],
+            C: [
+                { name: "Nikola Jokic", ovr: 98 },
+                { name: "Shaquille O'Neal", ovr: 97 },
+                { name: "Hakeem Olajuwon", ovr: 96 },
+                { name: "Joel Embiid", ovr: 95 },
+                { name: "Victor Wembanyama", ovr: 92 }
+            ]
         };
 
-        // Obstacle Object
-        const obstacle = {
-            x: canvas.width,
-            y: 112,
-            width: 18,
-            height: 20,
-            speed: 5
-        };
+        let currentRoster = {};
+        const draftBtn = document.getElementById('draft-btn');
+        const simBtn = document.getElementById('sim-btn');
+        const simResult = document.getElementById('sim-result');
 
-        function drawDino() {
-            ctx.fillStyle = '#27ae60'; // Green color for dino
-            ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+        function getRandomPlayer(pos) {
+            const list = playerPool[pos];
+            return list[Math.floor(Math.random() * list.length)];
         }
 
-        function drawObstacle() {
-            ctx.fillStyle = '#e74c3c'; // Red color for obstacle
-            ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-        }
+        draftBtn.addEventListener('click', function() {
+            const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
+            
+            positions.forEach(pos => {
+                const player = getRandomPlayer(pos);
+                currentRoster[pos] = player;
+                
+                const slotEl = document.getElementById(`slot-${pos}`);
+                slotEl.innerHTML = `<strong>${pos}</strong>${player.name}<br><small>(${player.ovr} OVR)</small>`;
+            });
 
-        function drawGround() {
-            ctx.beginPath();
-            ctx.moveTo(0, 132);
-            ctx.lineTo(canvas.width, 132);
-            ctx.strokeStyle = '#7f8c8d';
-            ctx.lineWidth = 2;
-            ctx.stroke();
-        }
-
-        function jump() {
-            if (dino.isGrounded && !gameOver) {
-                dino.dy = dino.jumpPower;
-                dino.isGrounded = false;
-            }
-        }
-
-        function updateGame() {
-            if (gameOver) return;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Apply gravity to Dino
-            dino.dy += dino.gravity;
-            dino.y += dino.dy;
-
-            // Check if Dino hit ground
-            if (dino.y >= 100) {
-                dino.y = 100;
-                dino.dy = 0;
-                dino.isGrounded = true;
-            }
-
-            // Move Obstacle
-            obstacle.x -= obstacle.speed;
-            if (obstacle.x + obstacle.width < 0) {
-                obstacle.x = canvas.width;
-                score += 10;
-                scoreText.textContent = 'Score: ' + score;
-                // Gradually increase speed
-                if (obstacle.speed < 10) obstacle.speed += 0.2;
-            }
-
-            // Collision Detection
-            if (
-                dino.x < obstacle.x + obstacle.width &&
-                dino.x + dino.width > obstacle.x &&
-                dino.y < obstacle.y + obstacle.height &&
-                dino.y + dino.height > obstacle.y
-            ) {
-                gameOver = true;
-                scoreText.textContent = 'Game Over! Final Score: ' + score;
-            }
-
-            drawGround();
-            drawDino();
-            drawObstacle();
-
-            if (!gameOver) {
-                animationFrameId = requestAnimationFrame(updateGame);
-            }
-        }
-
-        function resetGame() {
-            cancelAnimationFrame(animationFrameId);
-            score = 0;
-            gameOver = false;
-            obstacle.x = canvas.width;
-            obstacle.speed = 5;
-            dino.y = 100;
-            dino.dy = 0;
-            dino.isGrounded = true;
-            scoreText.textContent = 'Score: 0';
-            updateGame();
-        }
-
-        // Controls
-        jumpBtn.addEventListener('click', jump);
-        restartBtn.addEventListener('click', resetGame);
-
-        document.addEventListener('keydown', function(event) {
-            if (event.code === 'Space' || event.code === 'ArrowUp') {
-                event.preventDefault(); // Prevents page scrolling when hitting Space
-                jump();
-            }
+            simBtn.disabled = false;
+            simResult.style.display = 'none';
         });
 
-        // Start game on load
-        updateGame();
+        simBtn.addEventListener('click', function() {
+            let totalOvr = 0;
+            for (let pos in currentRoster) {
+                totalOvr += currentRoster[pos].ovr;
+            }
+            const avgOvr = totalOvr / 5;
+
+            // Simulate 82 games based on team overall rating
+            let wins = 0;
+            let losses = 0;
+
+            for (let i = 0; i < 82; i++) {
+                // Calculate win probability for each game
+                const winChance = (avgOvr - 70) / 30; // High overall = near ~90-95% win chance per game
+                const randomVal = Math.random();
+                
+                if (randomVal < winChance) {
+                    wins++;
+                } else {
+                    losses++;
+                }
+            }
+
+            simResult.style.display = 'block';
+            if (wins === 82) {
+                simResult.innerHTML = `🏆 PERFECT SEASON! Record: 82-0!<br>Team Average OVR: ${avgOvr.toFixed(1)} — You built a GOAT roster!`;
+            } else if (wins >= 70) {
+                simResult.innerHTML = `🔥 Incredible Run! Record: ${wins}-${losses}.<br>Team Average OVR: ${avgOvr.toFixed(1)}. So close to 82-0! Draft again!`;
+            } else {
+                simResult.innerHTML = `🏀 Good Season! Record: ${wins}-${losses}.<br>Team Average OVR: ${avgOvr.toFixed(1)}. Re-draft to chase 82-0!`;
+            }
+        });
     </script>
 </body>
 </html>
