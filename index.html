@@ -401,13 +401,13 @@
         <div class="top-bar">
             <!-- SUB-PAGE TABS -->
             <div class="nav-tabs">
-                <button id="tab-home" class="tab-btn active" onclick="switchPage('home')">🏠 Home</button>
-                <button id="tab-sports" class="tab-btn" onclick="switchPage('sports')">🏆 Recent Sports</button>
+                <button id="tab-home" class="tab-btn active" onclick="switchPage('home')">🏠 Home</button> <!-- This is the switch bage and home page button -->
+                <button id="tab-sports" class="tab-btn" onclick="switchPage('sports')">🏆 Recent Sports</button> <!-- this is for the recent sports button -->
             </div>
 
             <!-- CONTROLS: LANGUAGE & DARK MODE -->
             <div class="controls-group">
-                <select id="lang-select" class="lang-select" aria-label="Select Language">
+                <select id="lang-select" class="lang-select" aria-label="Select Language"> <!-- All code below is for language tabs -->
                     <option value="en">🇬🇧 English</option>
                     <option value="fr">🇫🇷 Français</option>
                     <option value="es">🇪🇸 Español</option>
@@ -418,14 +418,14 @@
 
         <!-- PAGE 1: HOME PAGE -->
         <div id="page-home">
-            <h1 id="page-title">Introduction to Web Development</h1>
+            <h1 id="page-title">Introduction to Web Development</h1> <!-- Code for make the first to parts of the website such as the intro and title -->
             <p id="welcome-text">Welcome to our class webpage! In this course, we are learning the fundamentals of building and publishing websites using HTML, CSS, and JavaScript on GitHub Pages.</p>
 
             <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Laptop computer displaying computer code on screen">
 
-            <!-- COMPONENT 1: TIP GENERATOR -->
+            <!-- COMPONENT 1: TIP GENERATOR --> 
             <div class="interactive-box">
-                <h2 id="tip-title">💡 Tip Generator</h2>
+                <h2 id="tip-title">💡 Tip Generator</h2> <!-- This is the code to make the button that allows the tip generator to shuffle  -->
                 <p id="tip-sub">Click the button below to reveal a web dev tip!</p>
                 <button id="tip-btn" class="btn-primary">Get a Tip</button>
                 <p id="tip-display">Click the button above to start!</p>
@@ -433,7 +433,7 @@
 
             <!-- COMPONENT 2: 82-0 RANDOM PLAYER BASKETBALL SIMULATOR -->
             <div class="interactive-box">
-                <h2 id="game-title">🏀 82-0 Random Legend Basketball Simulator</h2>
+                <h2 id="game-title">🏀 82-0 Random Legend Basketball Simulator</h2> <!-- This is the code to make the title for the simulator game.  -->
                 <p id="game-sub">Click <strong>Draft Random Roster</strong> to draw 5 random all-time NBA legends into your starting lineup, then simulate an 82-game season to reach 82-0 perfection!</p>
 
                 <!-- RANDOM PLAYER CARDS GRID -->
@@ -441,7 +441,7 @@
                     <div class="player-card" id="card-PG">
                         <span class="pos-tag">PG</span>
                         <div class="player-name" id="name-PG">?</div>
-                        <div class="player-ovr" id="ovr-PG">-</div>
+                        <div class="player-ovr" id="ovr-PG">-</div> <!-- This is the code to make the overall for each of the players per position  -->
                         <button class="slot-btn" onclick="draftSingleRandom('PG')">🎲 Draw PG</button>
                     </div>
                     <div class="player-card" id="card-SG">
@@ -478,7 +478,7 @@
 
                 <!-- SIMULATION TICKER & PROGRESS -->
                 <div id="sim-progress" class="sim-progress-container">
-                    <div class="progress-bar-bg">
+                    <div class="progress-bar-bg"> <!-- This is the code to make the progress bar color and what it would look like  -->
                         <div id="progress-bar-fill" class="progress-bar-fill"></div>
                     </div>
                     <div id="sim-ticker" class="sim-ticker">Game 0/82: Ready...</div>
@@ -501,9 +501,9 @@
             <div class="sports-grid">
                 <!-- BASKETBALL -->
                 <div class="sport-card">
-                    <div class="sport-header">
+                    <div class="sport-header"> <!-- This is the code to make the class as to what the sport is  -->
                         <span style="font-size: 24px;">🏀</span>
-                        <h3 id="bball-title">Basketball (NBA & College)</h3>
+                        <h3 id="bball-title">Basketball (NBA & College)</h3> 
                     </div>
                     <p id="bball-desc">High-octane matchups, buzzer-beaters, and playoff pushes define the current season. Top contenders are showcasing elite shooting and offensive efficiency down the stretch.</p>
                 </div>
@@ -529,11 +529,11 @@
         </div>
 
         <!-- FOOTER LINKS -->
-        <p id="footer-links" style="margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+        <p id="footer-links" style="margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px;"> <!-- This is the code to make the text proper size and color -->
             <span id="text-learn">Want to learn more? Check out </span>
             <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN Web Docs</a> 
             <span id="text-or"> or explore projects on </span>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>.
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>. 
         </p>
     </main>
 
